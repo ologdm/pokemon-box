@@ -16,6 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigator.startAllPokemonsFragment()
+        navigator.startAllPokemonFragment()
     }
 }
