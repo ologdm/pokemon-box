@@ -1,0 +1,89 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+
+    // added
+    id("kotlin-kapt")
+
+    // hilt dagger
+    id("com.google.dagger.hilt.android")
+
+    // parcelize
+//    id 'kotlin-parcelize'
+
+}
+
+android {
+    namespace 'com.example.pokemonbox'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.pokemonbox"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+// my dependencies - retrofit, paging3 dagger hilt, coroutines, glide, viewmodels, swipe refresh
+    // coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // kotlin serialization
+    implementation libs.kotlinx.serialization.json
+
+    // viewmodels
+    implementation libs.androidx.fragment.ktx
+
+    // hilt dagger
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+
+    // retrofit
+//    implementation 'com.squareup.retrofit2:retrofit:2.10.0'
+//    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.retrofit2.kotlinx.serialization.converter
+
+    // glide
+    implementation libs.glide
+    kapt libs.compiler
+
+    // paging3
+    implementation libs.androidx.paging.runtime.ktx
+
+}
+
+
+kapt {
+    correctErrorTypes true
+}
