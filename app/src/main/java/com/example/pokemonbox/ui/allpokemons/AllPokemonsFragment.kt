@@ -1,4 +1,13 @@
 package com.example.pokemonbox.ui.allpokemons
 
-class AllPokemonsFragment {
+import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class AllPokemonsFragment :Fragment() {
+
+
+
+
+
 }
