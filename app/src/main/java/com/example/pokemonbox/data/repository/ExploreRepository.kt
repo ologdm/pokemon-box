@@ -4,7 +4,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PokemonRepository @Inject constructor(
+class ExploreRepository @Inject constructor(
 
 ) {
 

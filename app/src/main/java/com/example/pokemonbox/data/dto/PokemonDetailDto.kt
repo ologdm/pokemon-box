@@ -8,7 +8,7 @@ data class PokemonDetailDto(
     val id: Int,
     val name: String,
     val types: List<TypeSlotDto>,
-    // don't use
+    /* don't use
 //    @SerializedName("base_experience") val baseExperience: Int,
 //    val height: Int,
 //    val weight: Int,
@@ -24,6 +24,7 @@ data class PokemonDetailDto(
 //    @SerializedName("game_indices") val gameIndices: List<GameIndexDto>
 //    @SerializedName("held_items") val heldItems: List<HeldItemDto>
 //    @SerializedName("location_area_encounters") val locationAreaEncounters: String
+     */
 )
 
 

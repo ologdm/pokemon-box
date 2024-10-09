@@ -1,17 +1,17 @@
-package com.example.pokemonbox.ui.allpokemon
+package com.example.pokemonbox.ui.explore
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.pokemonbox.databinding.FragmentAllpokemonBinding
+import com.example.pokemonbox.databinding.FragmentPokemonBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AllPokemonFragment : Fragment() {
+class ExploreFragment : Fragment() {
 
-    private var _binding: FragmentAllpokemonBinding? = null
+    private var _binding: FragmentPokemonBinding? = null
     private val binding get() = _binding
 
 
@@ -20,7 +20,7 @@ class AllPokemonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAllpokemonBinding.inflate(inflater, container, false)
+        _binding = FragmentPokemonBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

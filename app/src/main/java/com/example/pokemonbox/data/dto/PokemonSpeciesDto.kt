@@ -10,6 +10,7 @@ data class PokemonSpeciesDto(
     val id: Int,
     val name: String,
     @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>,
+    /* don't use
 //val base_happiness: Int,
 //val capture_rate: Int,
 //val color: NamedAPIResource,
@@ -34,8 +35,8 @@ data class PokemonSpeciesDto(
 //val pokedex_numbers: List<PokedexNumber>,
 //val shape: NamedAPIResource?,
 //val varieties: List<Variety>
+     */
 )
-
 
 
 data class FlavorTextEntry(

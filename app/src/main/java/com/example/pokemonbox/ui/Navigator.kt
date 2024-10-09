@@ -2,7 +2,7 @@ package com.example.pokemonbox.ui
 
 import androidx.fragment.app.FragmentActivity
 import com.example.pokemonbox.R
-import com.example.pokemonbox.ui.allpokemon.AllPokemonFragment
+import com.example.pokemonbox.ui.explore.ExploreFragment
 import javax.inject.Inject
 
 class Navigator @Inject constructor(
@@ -12,7 +12,7 @@ class Navigator @Inject constructor(
     fun startAllPokemonFragment() {
         fragmentActivity.supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, AllPokemonFragment())
+            .replace(R.id.frame_layout, ExploreFragment())
             .commit()
     }
 
