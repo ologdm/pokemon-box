@@ -3,7 +3,6 @@ package com.example.pokemonbox.ui
 import androidx.fragment.app.FragmentActivity
 import com.example.pokemonbox.R
 import com.example.pokemonbox.ui.allpokemon.AllPokemonFragment
-import com.example.pokemonbox.ui.detail.DetailFragment
 import javax.inject.Inject
 
 class Navigator @Inject constructor(
@@ -14,15 +13,6 @@ class Navigator @Inject constructor(
         fragmentActivity.supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_layout, AllPokemonFragment())
-            .commit()
-    }
-
-
-    fun startDetailFragment() {
-        fragmentActivity.supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frame_layout, DetailFragment())
-            .addToBackStack(null)
             .commit()
     }
 

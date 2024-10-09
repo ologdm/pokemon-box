@@ -20,7 +20,7 @@ class AllPokemonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAllpokemonBinding.inflate(inflater,container,false)
+        _binding = FragmentAllpokemonBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -30,15 +30,15 @@ class AllPokemonFragment : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+
+        // observer - unico, multiplo?
+
 
     }
-
-
-
-
-
-
 
 
 }
