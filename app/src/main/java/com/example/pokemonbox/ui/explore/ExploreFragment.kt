@@ -22,7 +22,7 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentPokemonBinding? = null
     private val binding get() = _binding
 
-    private val viewmodel by viewModels <ExploreViewmodel>()
+    private val viewmodel by viewModels<ExploreViewmodel>()
 
     private val adapter = AllPokemonPagingAdapter()
 
@@ -51,15 +51,16 @@ class ExploreFragment : Fragment() {
 
         // observer - unico, multiplo?
         viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.statePaging.collectLatest {pagingData->
+            viewmodel.statePaging.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
                 val x = pagingData.map {
-                   it
-                }
-
-
+                    it
                 }
             }
         }
 
+
+
     }
+
+}

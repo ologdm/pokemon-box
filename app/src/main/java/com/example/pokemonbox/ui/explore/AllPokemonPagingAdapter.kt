@@ -6,9 +6,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.pokemonbox.data.dto.PokemonBaseDto
 import com.example.pokemonbox.databinding.VhPokemonBinding
+import com.example.pokemonbox.domain.Pokemon
 
 class AllPokemonPagingAdapter
-    : PagingDataAdapter<PokemonBaseDto, PokemonVH>(AllPokemonPagingAdapter) {
+    : PagingDataAdapter<Pokemon, PokemonVH>(AllPokemonPagingAdapter) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonVH {
@@ -17,22 +18,23 @@ class AllPokemonPagingAdapter
         return PokemonVH(bindingVh)
     }
 
+
     override fun onBindViewHolder(holder: PokemonVH, position: Int) {
         val item = getItem(position)
 
-
-        holder.bind(item!!)
-
+        item?.let {
+            holder.bind(item)
+        }
 
     }
 
 
-    companion object : DiffUtil.ItemCallback<PokemonBaseDto>() {
-        override fun areItemsTheSame(oldItem: PokemonBaseDto, newItem: PokemonBaseDto): Boolean {
+    companion object : DiffUtil.ItemCallback<Pokemon>() {
+        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
             return oldItem.url == newItem.url // url contiene id univoco
         }
 
-        override fun areContentsTheSame(oldItem: PokemonBaseDto, newItem: PokemonBaseDto): Boolean {
+        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
             return oldItem == newItem
         }
 

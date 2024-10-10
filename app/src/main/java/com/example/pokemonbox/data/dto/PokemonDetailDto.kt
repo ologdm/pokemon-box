@@ -7,7 +7,7 @@ package com.example.pokemonbox.data.dto
 data class PokemonDetailDto(
     val id: Int,
     val name: String,
-    val types: List<TypeSlotDto>,
+    val types: List<TypeSlotDto>, // funzione conversione su joinData()
     /* don't use
 //    @SerializedName("base_experience") val baseExperience: Int,
 //    val height: Int,
@@ -31,10 +31,10 @@ data class PokemonDetailDto(
 // total 12 types
 data class TypeSlotDto(
     val slot: Int,
-    val type: Type
+    val type: TypeDto
 )
 
-data class Type(
+data class TypeDto(
     val name: String,
     val url: String
 )

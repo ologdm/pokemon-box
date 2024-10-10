@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class PokemonSpeciesDto(
     val id: Int,
     val name: String,
-    @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>,
+    @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntryDto>,
     /* don't use
 //val base_happiness: Int,
 //val capture_rate: Int,
@@ -39,14 +39,14 @@ data class PokemonSpeciesDto(
 )
 
 
-data class FlavorTextEntry(
+data class FlavorTextEntryDto(
     @SerializedName("flavor_text") val flavorText: String,
-    val language: NamedApiResource
+    val language: NamedApiResourceDto
 )
 
 
 // Dto == PokemonBaseDto
-data class NamedApiResource(
+data class NamedApiResourceDto(
     val name: String,
     val url: String
 )

@@ -18,15 +18,30 @@ interface PokeApi {
     ): PokemonListResponseDto
 
 
-    @GET("pokemon/{name}")
+    // DETAIL
+    // by pokemon_id (use for pokemon list)
+    @GET("pokemon/{pokemon_id}")
     //https://pokeapi.co/api/v2/pokemon/bulbasaur/
+    suspend fun getPokemonDetail(
+        @Path("pokemon_id") pokemonId: Int
+    ): PokemonDetailDto
+
+    // by name (use for search)
+    @GET("pokemon/{name}")
     suspend fun getPokemonDetail(
         @Path("name") name: String
     ): PokemonDetailDto
 
 
-    // pokemon description
+    // SPECIES
+    // by pokemon_id (use for pokemon list)
     //https://pokeapi.co/api/v2/pokemon-species/bulbasaur/
+    @GET("pokemon-species/{pokemon_id}")
+    suspend fun getPokemonSpecies(
+        @Path("pokemon_id") pokemonId: Int
+    ): PokemonSpeciesDto
+
+    // by pokemon name (use for search)
     @GET("pokemon-species/{name}")
     suspend fun getPokemonSpecies(
         @Path("name") name: String
