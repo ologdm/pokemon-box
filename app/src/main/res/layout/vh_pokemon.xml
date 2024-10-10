@@ -11,10 +11,9 @@
             android:id="@+id/pokemon_image"
             android:layout_width="0dp"
             android:layout_height="120dp"
-            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintDimensionRatio="1:1"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars"
-            android:background="@android:color/holo_blue_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,9 +30,9 @@
                 android:id="@+id/pokemon_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:text="Bulbasaur"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
@@ -47,11 +46,10 @@
                     android:visibility="gone"
                     tools:visibility="visible"
                     app:chipStrokeColor="@android:color/transparent"
-                    app:chipStrokeWidth="0dp"/>
+                    app:chipStrokeWidth="0dp" />
 
 
         </com.google.android.material.chip.ChipGroup>
-
 
 
         <TextView
@@ -59,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@tools:sample/lorem/random"
-                android:maxLines="2"/>
+                android:maxLines="2" />
 
 
     </LinearLayout>
@@ -67,7 +65,9 @@
     <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.pokemonbox.data
 
 import com.example.pokemonbox.data.dto.PokemonBaseDto
 import com.example.pokemonbox.data.dto.PokemonDetailDto
+import com.example.pokemonbox.data.dto.PokemonListResponseDto
 import com.example.pokemonbox.data.dto.PokemonSpeciesDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,11 +10,12 @@ import retrofit2.http.Query
 
 interface PokeApi {
 
+
     @GET("pokemon")
     suspend fun getAllPokemonList(
-        @Query("offset") offset: Int,
-        @Query("limit") limit: Int
-    ): List<PokemonBaseDto>
+        @Query("offset") offset: Int
+//        @Query("limit") limit: Int
+    ): PokemonListResponseDto
 
 
     @GET("pokemon/{name}")
@@ -26,7 +28,7 @@ interface PokeApi {
     // pokemon description
     //https://pokeapi.co/api/v2/pokemon-species/bulbasaur/
     @GET("pokemon-species/{name}")
-    fun getPokemonSpecies(
+    suspend fun getPokemonSpecies(
         @Path("name") name: String
     ): PokemonSpeciesDto
 
@@ -40,7 +42,7 @@ interface PokeApi {
 
 
 // PAGING - all pokemon
-// https://pokeapi.co/api/v2/pokemon // -> start
+// https://pokeapi.co/api/v2/pokemon  (?offset=0&limit=20) default start
 
 //https://pokeapi.co/api/v2/pokemon?offset=20&limit=20  // ->  pagina2
 //https://pokeapi.co/api/v2/pokemon?offset=40&limit=20 ->next
