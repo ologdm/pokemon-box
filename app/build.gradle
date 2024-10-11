@@ -1,15 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-
-    // added
     id("kotlin-kapt")
-
-    // hilt dagger
     id("com.google.dagger.hilt.android")
-
-    // parcelize
-//    id 'kotlin-parcelize'
 
 }
 
@@ -61,13 +54,9 @@ dependencies {
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
 
-// my dependencies - TODO add: SwipeRefresh, FragmentViewBindingDelegate-kt,
     // coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-
-    // kotlin serialization
-    implementation libs.kotlinx.serialization.json
 
     // viewmodels
     implementation libs.androidx.fragment.ktx
@@ -78,24 +67,15 @@ dependencies {
 
 
     // retrofit
-//    implementation 'com.squareup.retrofit2:retrofit:2.10.0'
-//    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.9.0'
     implementation libs.retrofit
     implementation libs.converter.gson
-    implementation libs.retrofit2.kotlinx.serialization.converter
 
     // glide
     implementation libs.glide
-    kapt libs.compiler
+    kapt libs.glide.compiler
 
     // paging3
     implementation libs.androidx.paging.runtime.ktx
-
-    // room
-    def room_version = "2.6.1"
-    implementation "androidx.room:room-ktx:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
 
 }
 
