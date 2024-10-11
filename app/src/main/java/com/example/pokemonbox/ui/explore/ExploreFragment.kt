@@ -2,6 +2,8 @@ package com.example.pokemonbox.ui.explore
 
 import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +28,13 @@ class ExploreFragment : Fragment() {
 
     private val adapter = AllPokemonPagingAdapter()
 
+
+    // Search Debouncing
+    private val handler = Handler(Looper.getMainLooper())
+    private var searchRunnable: Runnable? = null
+    private val DEBOUNCE_DELAY: Long = 300L
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +58,7 @@ class ExploreFragment : Fragment() {
         binding?.recyclerView?.adapter = adapter
         binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
-        // observer - unico, multiplo?
+        // PAGING LIST
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.statePaging.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
@@ -59,6 +68,13 @@ class ExploreFragment : Fragment() {
             }
         }
 
+        // SEARCH RESULT
+        viewmodel.searchStatus.observe(viewLifecycleOwner) {
+            binding?.searchResultLayout?.pokemonName?.text = it.name
+            binding?.searchResultLayout?.pokemonDescription?.text = it.description
+        }
+
+        viewmodel.loadSearchResult(query)
 
 
     }

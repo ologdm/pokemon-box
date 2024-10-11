@@ -1,13 +1,13 @@
 package com.example.pokemonbox.data.dto
 
+import com.example.pokemonbox.domain.Pokemon
+import com.example.pokemonbox.utils.removeLineBreaks
 
-// detailDto - con tutte le categorie presenti,
-// uso solo quelle necessarie
 
 data class PokemonDetailDto(
     val id: Int,
     val name: String,
-    val types: List<TypeSlotDto>, // funzione conversione su joinData()
+    val types: List<TypeSlotDto>, // conversion function on joinData()
     /* don't use
 //    @SerializedName("base_experience") val baseExperience: Int,
 //    val height: Int,
@@ -38,4 +38,22 @@ data class TypeDto(
     val name: String,
     val url: String
 )
+
+
+fun PokemonDetailDto.toDomain(
+    pokemonSpeciesDto: PokemonSpeciesDto?,
+): Pokemon {
+//        val detail = pokemonDetailsDtos.find { it.id == pokemonBaseDto.id }
+//        val species = pokemonSpeciesDtos.find { it.id == pokemonBaseDto.id }
+    return Pokemon(
+        id = this.id,
+        name = this.name,
+        types = this.types.map { it.type.name }, // se primo slot vuoto, anche gli altri saran vuoti
+        description = pokemonSpeciesDto?.flavorTextEntries
+            ?.sortedBy { it.flavorText.length }
+            ?.firstOrNull { it.language.name == "en" }?.flavorText?.removeLineBreaks()
+            ?: "no description"
+    )
+}
+
 

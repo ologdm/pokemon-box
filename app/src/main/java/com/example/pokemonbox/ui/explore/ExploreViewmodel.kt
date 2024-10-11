@@ -1,5 +1,6 @@
 package com.example.pokemonbox.ui.explore
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -8,7 +9,10 @@ import androidx.paging.cachedIn
 import com.example.pokemonbox.data.PokeApi
 import com.example.pokemonbox.data.repository.AllPokemonPagingSource
 import com.example.pokemonbox.data.repository.ExploreRepository
+import com.example.pokemonbox.domain.Pokemon
+import com.example.pokemonbox.utils.IoResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -28,7 +32,23 @@ class ExploreViewmodel @Inject constructor(
 
 
     // search pokemon by name
+    val searchStatus = MutableLiveData<Pokemon>()
 
+    fun loadSearchResult(name: String) {
+        viewModelScope.launch {
+            when (val response = repository.getPokemonSearchResult(name)) {
+                is IoResponse.Success -> {
+                    searchStatus.value = response.dataValue
+                }
+
+                is IoResponse.Error -> {
+                    TODO("")
+                }
+
+            }
+
+        }
+    }
 
 
 }

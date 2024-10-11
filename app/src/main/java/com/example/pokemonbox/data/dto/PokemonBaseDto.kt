@@ -5,7 +5,6 @@ data class PokemonBaseDto(
     val url: String // "https://pokeapi.co/api/v2/pokemon/{id}/""
 ) {
 
-    // TODO - test, eliminare
     // es json_url - https://pokeapi.co/api/v2/pokemon/1/"
     val id: Int
         get() = url

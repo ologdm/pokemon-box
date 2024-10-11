@@ -2,14 +2,12 @@ package com.example.pokemonbox.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-// speciesDto - con tutte le categorie presenti,
-// uso solo quelle necessarie
 
 
 data class PokemonSpeciesDto(
     val id: Int,
     val name: String,
-    @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntryDto>,
+    @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntryDto>, // conversion function on joinData()
     /* don't use
 //val base_happiness: Int,
 //val capture_rate: Int,

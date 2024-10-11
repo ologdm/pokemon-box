@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.example.pokemonbox.data.dto.PokemonBaseDto
 import com.example.pokemonbox.databinding.VhPokemonBinding
 import com.example.pokemonbox.domain.Pokemon
 
@@ -31,7 +30,7 @@ class AllPokemonPagingAdapter
 
     companion object : DiffUtil.ItemCallback<Pokemon>() {
         override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
-            return oldItem.url == newItem.url // url contiene id univoco
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean {
