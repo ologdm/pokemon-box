@@ -1,53 +1,32 @@
 package com.example.pokemonbox.ui.explore
 
-import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokemonbox.R
 import com.example.pokemonbox.databinding.FragmentPokemonBinding
+import com.example.pokemonbox.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment() {
+class ExploreFragment : Fragment(R.layout.fragment_pokemon) {
 
-    private var _binding: FragmentPokemonBinding? = null
-    private val binding get() = _binding
+    private val binding by viewBinding { FragmentPokemonBinding.bind(it) }
 
     private val viewmodel by viewModels<ExploreViewmodel>()
 
     private val adapter = AllPokemonPagingAdapter()
-
-
-    // Search Debouncing
-    private val handler = Handler(Looper.getMainLooper())
-    private var searchRunnable: Runnable? = null
-    private val DEBOUNCE_DELAY: Long = 300L
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentPokemonBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
     override fun onViewCreated(
@@ -62,20 +41,48 @@ class ExploreFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.statePaging.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
-                val x = pagingData.map {
-                    it
-                }
             }
         }
 
-        // SEARCH RESULT
-        viewmodel.searchStatus.observe(viewLifecycleOwner) {
-            binding?.searchResultLayout?.pokemonName?.text = it.name
-            binding?.searchResultLayout?.pokemonDescription?.text = it.description
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest {
+                val isSearchMode = viewmodel.isSearchingFlow.first()
+                binding?.loadingBar?.isVisible = it.refresh == LoadState.Loading && !isSearchMode
+                binding?.errorText?.isVisible = it.hasError && !isSearchMode
+            }
         }
 
-        viewmodel.loadSearchResult(query)
+        // STATO STRING RICERCA
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewmodel.isSearchingFlow
+                .collectLatest { isText->
+                    binding?.recyclerView?.isVisible = !isText
+                    binding?.searchResultLayout?.root?.isVisible = isText
+                    binding?.errorText?.isVisible = false
+                    binding?.loadingBar?.isVisible = false
+                }
+        }
 
+        // SEARCH RESULT
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewmodel.searchResultStatus.collectLatest {
+                binding?.searchResultLayout?.divider?.isVisible = false
+                val isSearchMode = viewmodel.isSearchingFlow.first()
+                binding?.loadingBar?.isVisible = it.isLoading && isSearchMode
+                binding?.errorText?.isVisible = it.isError && isSearchMode
+
+                binding?.searchResultLayout?.root?.isVisible = it.data != null
+                binding?.searchResultLayout?.pokemonName?.text = it.data?.name.orEmpty()
+                binding?.searchResultLayout?.pokemonDescription?.text = it.data?.description.orEmpty()
+            }
+        }
+
+
+
+//        viewmodel.loadSearchResult(query) -su viewmodel
+        binding?.searchInputEditText?.doAfterTextChanged { s ->
+            viewmodel.updateQuery(s.toString())
+        }
 
     }
 

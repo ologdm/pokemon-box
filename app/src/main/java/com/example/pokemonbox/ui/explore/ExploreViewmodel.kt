@@ -7,14 +7,20 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.pokemonbox.data.PokeApi
-import com.example.pokemonbox.data.repository.AllPokemonPagingSource
-import com.example.pokemonbox.data.repository.ExploreRepository
+import com.example.pokemonbox.data.AllPokemonPagingSource
+import com.example.pokemonbox.data.ExploreRepository
 import com.example.pokemonbox.domain.Pokemon
 import com.example.pokemonbox.utils.IoResponse
+import com.example.pokemonbox.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class ExploreViewmodel @Inject constructor(
@@ -22,6 +28,9 @@ class ExploreViewmodel @Inject constructor(
     private val repository: ExploreRepository
 ) : ViewModel() {
 
+    companion object {
+        private val DEBOUNCE_DELAY: Long = 300L
+    }
 
     // paging all pokemons
     val statePaging = Pager(
@@ -32,19 +41,42 @@ class ExploreViewmodel @Inject constructor(
 
 
     // search pokemon by name
-    val searchStatus = MutableLiveData<Pokemon>()
+    val searchResultStatus = MutableStateFlow<UiState<Pokemon>>(UiState())
 
-    fun loadSearchResult(name: String) {
+    private val _searchQueryFlow = MutableStateFlow("")
+    val isSearchingFlow: Flow<Boolean> = _searchQueryFlow
+        .map { it.isNotBlank() } // blank - tutta la stringa senza caratteri
+
+
+
+    init {
         viewModelScope.launch {
-            when (val response = repository.getPokemonSearchResult(name)) {
-                is IoResponse.Success -> {
-                    searchStatus.value = response.dataValue
+            _searchQueryFlow
+                .debounce(DEBOUNCE_DELAY)
+                .filter { it.isNotBlank() }
+                .collectLatest {
+                    loadSearchResult(it) // OK
                 }
+        }
+    }
 
-                is IoResponse.Error -> {
-                    TODO("")
-                }
+    // usare su fragment - x.doAfterTextChanged()
+    fun updateQuery(query: String) {
+        _searchQueryFlow.value = query
+    }
 
+    // usata internamente
+    private suspend fun loadSearchResult(name: String) {
+        searchResultStatus.value = UiState(isLoading = true) // resetto ui prima di fare la chiamata
+        when (val response = repository.getPokemonSearchResult(name)) {
+            is IoResponse.Success -> {
+                searchResultStatus.value = UiState(data = response.dataValue)
+                // loading farse, error false di default
+            }
+
+            is IoResponse.Error -> {
+                searchResultStatus.value = UiState(isError = true)
+                response.t.printStackTrace()
             }
 
         }

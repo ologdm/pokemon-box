@@ -1,4 +1,4 @@
-package com.example.pokemonbox.data.repository
+package com.example.pokemonbox.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -34,7 +34,9 @@ class AllPokemonPagingSource(
             // 2.1
             val pokemonDetailDeferredList = coroutineScope {
                 resultPokemons.map {
-                    async { pokeApi.getPokemonDetail(it.id) }
+                    async {
+                        pokeApi.getPokemonDetail(it.id)
+                    }
                 }
             }
 
@@ -93,10 +95,8 @@ class AllPokemonPagingSource(
             val pokemon = Pokemon(
                 id = pokemonBaseDto.id,
                 name = pokemonBaseDto.name,
-//                url = pokemonBaseDto.url,
                 types = detail?.types?.map { it.type.name }
                     ?: emptyList(), // se primo slot vuoto, anche gli altri saran vuoti
-//                description = species?.flavorTextEntries?.first { it.language.name == "en" }?.flavorText?.removeLineBreaks()
                 description = species?.flavorTextEntries
                     ?.sortedBy { it.flavorText.length }
                     ?.firstOrNull { it.language.name == "en" }?.flavorText?.removeLineBreaks()

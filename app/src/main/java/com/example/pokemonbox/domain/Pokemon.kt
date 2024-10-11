@@ -1,11 +1,9 @@
 package com.example.pokemonbox.domain
 
-import com.example.pokemonbox.data.dto.TypeSlotDto
 
 data class Pokemon(
-    val id: Int, // = base
-    val name: String, // =base
-//    val url: String, // =base
+    val id: Int, // base
+    val name: String, // base
     val types: List<String>, // from detail list stringhe
     val description: String  // from species
 ) {

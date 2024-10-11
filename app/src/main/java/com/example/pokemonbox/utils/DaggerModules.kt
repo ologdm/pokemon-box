@@ -27,7 +27,7 @@ class DaggerModules {
             // no header
             .build()
 
-        return retrofit.create(PokeApi::class.java) // TODO: usa reflection, modificare
+        return retrofit.create(PokeApi::class.java)
     }
 
 
