@@ -48,7 +48,13 @@
             android:hint="@string/search_name"
             app:startIconDrawable="@drawable/search_icon"
             app:endIconScaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="@android:color/transparent">
 
 
         <com.google.android.material.textfield.TextInputEditText
