@@ -25,14 +25,14 @@
                     android:text="Pokemon"
                     android:textSize="30sp"
                     android:layout_marginBottom="16sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:layout_gravity="center_horizontal" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Box"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     android:layout_gravity="center_horizontal" />
