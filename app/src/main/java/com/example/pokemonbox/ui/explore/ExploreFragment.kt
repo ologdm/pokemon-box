@@ -34,8 +34,8 @@ class ExploreFragment : Fragment(R.layout.fragment_pokemon) {
         savedInstanceState: Bundle?
     ) {
 
-        binding?.recyclerView?.adapter = adapter
-        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // PAGING LIST
         viewLifecycleOwner.lifecycleScope.launch {
@@ -47,8 +47,8 @@ class ExploreFragment : Fragment(R.layout.fragment_pokemon) {
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest {
                 val isSearchMode = viewmodel.isSearchingFlow.first()
-                binding?.loadingBar?.isVisible = it.refresh == LoadState.Loading && !isSearchMode
-                binding?.errorText?.isVisible = it.hasError && !isSearchMode
+                binding.loadingBar.isVisible = it.refresh == LoadState.Loading && !isSearchMode
+                binding.errorText.isVisible = it.hasError && !isSearchMode
             }
         }
 
@@ -56,31 +56,31 @@ class ExploreFragment : Fragment(R.layout.fragment_pokemon) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.isSearchingFlow
                 .collectLatest { isText->
-                    binding?.recyclerView?.isVisible = !isText
-                    binding?.searchResultLayout?.root?.isVisible = isText
-                    binding?.errorText?.isVisible = false
-                    binding?.loadingBar?.isVisible = false
+                    binding.recyclerView.isVisible = !isText
+                    binding.searchResultLayout.root.isVisible = isText
+                    binding.errorText.isVisible = false
+                    binding.loadingBar.isVisible = false
                 }
         }
 
         // SEARCH RESULT
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.searchResultStatus.collectLatest {
-                binding?.searchResultLayout?.divider?.isVisible = false
+                binding.searchResultLayout.divider.isVisible = false
                 val isSearchMode = viewmodel.isSearchingFlow.first()
-                binding?.loadingBar?.isVisible = it.isLoading && isSearchMode
-                binding?.errorText?.isVisible = it.isError && isSearchMode
+                binding.loadingBar.isVisible = it.isLoading && isSearchMode
+                binding.errorText.isVisible = it.isError && isSearchMode
 
-                binding?.searchResultLayout?.root?.isVisible = it.data != null
-                binding?.searchResultLayout?.pokemonName?.text = it.data?.name.orEmpty()
-                binding?.searchResultLayout?.pokemonDescription?.text = it.data?.description.orEmpty()
+                binding.searchResultLayout.root.isVisible = it.data != null
+                binding.searchResultLayout.pokemonName.text = it.data?.name.orEmpty()
+                binding.searchResultLayout.pokemonDescription.text = it.data?.description.orEmpty()
             }
         }
 
 
 
 //        viewmodel.loadSearchResult(query) -su viewmodel
-        binding?.searchInputEditText?.doAfterTextChanged { s ->
+        binding.searchInputEditText.doAfterTextChanged { s ->
             viewmodel.updateQuery(s.toString())
         }
 

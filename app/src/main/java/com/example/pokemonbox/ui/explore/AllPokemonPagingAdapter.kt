@@ -19,12 +19,8 @@ class AllPokemonPagingAdapter
 
 
     override fun onBindViewHolder(holder: PokemonVH, position: Int) {
-        val item = getItem(position)
-
-        item?.let {
-            holder.bind(item)
-        }
-
+        val item = getItem(position) ?: return
+        holder.bind(item)
     }
 
 

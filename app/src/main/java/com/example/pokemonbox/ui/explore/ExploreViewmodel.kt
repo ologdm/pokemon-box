@@ -32,7 +32,6 @@ class ExploreViewmodel @Inject constructor(
         private val DEBOUNCE_DELAY: Long = 300L
     }
 
-    // paging all pokemons
     val statePaging = Pager(
         config = PagingConfig(pageSize = 20, enablePlaceholders = false),
         pagingSourceFactory = { AllPokemonPagingSource(pokeApi) }
@@ -40,12 +39,11 @@ class ExploreViewmodel @Inject constructor(
         .cachedIn(viewModelScope)
 
 
-    // search pokemon by name
     val searchResultStatus = MutableStateFlow<UiState<Pokemon>>(UiState())
 
     private val _searchQueryFlow = MutableStateFlow("")
     val isSearchingFlow: Flow<Boolean> = _searchQueryFlow
-        .map { it.isNotBlank() } // blank - tutta la stringa senza caratteri
+        .map { it.isNotBlank() }
 
 
 
@@ -60,18 +58,15 @@ class ExploreViewmodel @Inject constructor(
         }
     }
 
-    // usare su fragment - x.doAfterTextChanged()
     fun updateQuery(query: String) {
         _searchQueryFlow.value = query
     }
 
-    // usata internamente
     private suspend fun loadSearchResult(name: String) {
-        searchResultStatus.value = UiState(isLoading = true) // resetto ui prima di fare la chiamata
+        searchResultStatus.value = UiState(isLoading = true)
         when (val response = repository.getPokemonSearchResult(name)) {
             is IoResponse.Success -> {
                 searchResultStatus.value = UiState(data = response.dataValue)
-                // loading farse, error false di default
             }
 
             is IoResponse.Error -> {

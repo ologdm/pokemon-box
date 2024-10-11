@@ -10,9 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
-// TODO: repository modules
-
-
 @Module
 @InstallIn(SingletonComponent::class)
 class DaggerModules {
@@ -23,8 +20,7 @@ class DaggerModules {
     fun getPokeApi(): PokeApi {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://pokeapi.co/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create()) // TODO: modificare con serializable
-            // no header
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         return retrofit.create(PokeApi::class.java)

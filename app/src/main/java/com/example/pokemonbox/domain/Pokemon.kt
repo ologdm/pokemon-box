@@ -4,7 +4,7 @@ package com.example.pokemonbox.domain
 data class Pokemon(
     val id: Int, // base
     val name: String, // base
-    val types: List<String>, // from detail list stringhe
+    val types: List<String>, // from detail
     val description: String  // from species
 ) {
 

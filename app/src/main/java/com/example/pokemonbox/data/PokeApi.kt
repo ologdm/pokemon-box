@@ -13,7 +13,6 @@ interface PokeApi {
     @GET("pokemon")
     suspend fun getAllPokemonList(
         @Query("offset") offset: Int
-//        @Query("limit") limit: Int
     ): PokemonListResponseDto
 
 
@@ -45,17 +44,3 @@ interface PokeApi {
     ): PokemonSpeciesDto
 
 }
-
-
-// per ottenere i dati completi:
-// 1. chiamata lista paging
-// 2. detail per ogni elemento lista (list<Type>)
-// 3. species per ogni elemento lista ()
-
-
-// PAGING - all pokemon
-// https://pokeapi.co/api/v2/pokemon  (?offset=0&limit=20) default start
-
-//https://pokeapi.co/api/v2/pokemon?offset=20&limit=20  // ->  pagina2
-//https://pokeapi.co/api/v2/pokemon?offset=40&limit=20 ->next
-//https://pokeapi.co/api/v2/pokemon?offset=0&limit=20 ->previous

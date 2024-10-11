@@ -19,19 +19,14 @@ class AllPokemonPagingSource(
     private val pokeApi: PokeApi
 ) : PagingSource<Int, Pokemon>() {
 
-    // loadSize = sceglie l'adapter, start x3
-    // pageSize - definisco io, rimane quello
-
     override suspend fun load(
         params: LoadParams<Int>
     ): LoadResult<Int, Pokemon> {
         val offset = params.key ?: 0 // start offset
 
         return try {
-            // 1.
             val resultPokemons = pokeApi.getAllPokemonList(offset).results
 
-            // 2.1
             val pokemonDetailDeferredList = coroutineScope {
                 resultPokemons.map {
                     async {
@@ -40,7 +35,6 @@ class AllPokemonPagingSource(
                 }
             }
 
-            //2.2
             val pokemonSpeciesDeferredList = coroutineScope {
                 resultPokemons.map {
                     async {
@@ -49,7 +43,6 @@ class AllPokemonPagingSource(
                 }
             }
 
-            //3 ritorno risultato da thread paralleli
             val pokemonDetailList = pokemonDetailDeferredList.awaitAll()
             val pokemonSpeciesList = pokemonSpeciesDeferredList.awaitAll()
 
@@ -70,7 +63,6 @@ class AllPokemonPagingSource(
     }
 
 
-    // +20, -20
     override fun getRefreshKey(
         state: PagingState<Int, Pokemon>
     ): Int? {
