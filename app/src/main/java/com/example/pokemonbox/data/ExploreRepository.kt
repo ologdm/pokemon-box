@@ -1,4 +1,4 @@
-package com.example.pokemonbox.data.repository
+package com.example.pokemonbox.data
 
 import com.example.pokemonbox.data.PokeApi
 import com.example.pokemonbox.data.dto.PokemonDetailDto
@@ -10,6 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.supervisorScope
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.cancellation.CancellationException
@@ -21,7 +22,7 @@ class ExploreRepository @Inject constructor(
 
 
     suspend fun getPokemonSearchResult(name: String): IoResponse<Pokemon> {
-        return coroutineScope {
+        return supervisorScope {
             try {
                 val detailDeferred = async { pokeApi.getPokemonDetail(name) }
                 val speciesDeferred = async { pokeApi.getPokemonSpecies(name) }
