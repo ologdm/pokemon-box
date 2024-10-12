@@ -5,7 +5,7 @@
 
     <!-- error msg-->
     <string name="no_pokemon_found">No Pokémon found. Please try a different keyword.</string>
-    <string name="something_went_wrong">Something went wrong.</string>
+    <string name="something_went_wrong">Something went wrong. Retry.</string>
 
 
 </resources>
