@@ -3,7 +3,7 @@
     <color name="title_text_color">@android:color/black</color>
 
 <!--    200-->
-    <color name="my_background_color">#E0E0E0</color>
+    <color name="my_background_color">#E7E7E7</color>
 <!--    300-->
     <color name="search_bar_text_color">#BDBDBD</color>
 <!--  700  -->

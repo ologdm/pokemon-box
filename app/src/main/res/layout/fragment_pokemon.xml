@@ -4,7 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="20dp">
 
 
     <Toolbar
@@ -25,14 +27,14 @@
                     android:text="Pokemon"
                     android:textSize="30sp"
                     android:layout_marginBottom="16sp"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/title_text_color"
                     android:layout_gravity="center_horizontal" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Box"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/title_text_color"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     android:layout_gravity="center_horizontal" />
@@ -40,30 +42,33 @@
 
     </Toolbar>
 
-    <!-- angoli arrotondati -->
+
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_name"
             app:startIconDrawable="@drawable/search_icon"
-            app:endIconScaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeWidth="0dp"
-            app:boxStrokeColor="@android:color/transparent">
-
-
+            android:textColorHint="@color/search_bar_text_color"
+            app:boxBackgroundColor="@color/my_background_color"
+            app:startIconTint="@color/search_bar_text_color"
+            app:boxStrokeColor="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            >
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_input_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="6dp"
                 android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -94,6 +99,16 @@
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
             android:text="error text"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/error_text"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="?attr/colorSecondary"
+            android:text="Try again"
             app:layout_constraintEnd_toEndOf="parent" />
 
 
