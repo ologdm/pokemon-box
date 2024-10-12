@@ -20,24 +20,26 @@ class PokemonVH(
         Glide.with(binding.root.context)
             .load(item.imageUrl)
             .placeholder(R.drawable.pokemon_placeholder)
-            // placeholder - pallina pikemon
             .into(binding.pokemonImage)
 
         binding.typesChipGroup.removeAllViews()
         item.types.forEach { type ->
             val chip = Chip(context).apply {
-                text = type
-                textSize = 16f
+                text = type.replaceFirstChar { it.uppercaseChar() }
+                textSize = 18f
                 isClickable = false
                 isCheckable = false
 
-                // Design personalizzato
-                setChipBackgroundColorResource(com.google.android.material.R.color.material_grey_300)  // Imposta il colore di sfondo
-                setTextColor(context.getColor(com.google.android.material.R.color.material_grey_800))  // Imposta il colore del testo
-                chipCornerRadius = 24f  // Raggio degli angoli per un design più morbido
-                chipStrokeWidth = 1f  // Larghezza del bordo
-                chipStrokeColor = context.getColorStateList(com.google.android.material.R.color.material_grey_300)  // Colore del bordo
-//                elevation = 4f  // Ombra per dare un effetto di profondità
+                setChipBackgroundColorResource(R.color.my_background_color)
+                setTextColor(context.getColor(R.color.chip_text_color))
+                chipCornerRadius = 24f
+                chipStrokeWidth = 1f
+                chipStrokeColor = context.getColorStateList(R.color.my_background_color)
+                setEnsureMinTouchTargetSize(false)
+
+                chipStartPadding = 4f
+                chipEndPadding = 4f
+                setPadding(2,2,2,2)
 
             }
             binding.typesChipGroup.addView(chip)
