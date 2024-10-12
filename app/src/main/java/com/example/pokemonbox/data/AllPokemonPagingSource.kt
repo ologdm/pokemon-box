@@ -68,8 +68,8 @@ class AllPokemonPagingSource(
     ): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(state.config.pageSize) // +20
-                ?: anchorPage?.nextKey?.minus(state.config.pageSize) // -20
+            anchorPage?.prevKey?.plus(state.config.pageSize)
+                ?: anchorPage?.nextKey?.minus(state.config.pageSize)
         }
     }
 

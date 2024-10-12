@@ -28,7 +28,7 @@ class ExploreViewmodel @Inject constructor(
 ) : ViewModel() {
 
     companion object {
-        private val DEBOUNCE_DELAY: Long = 300L
+        private const val DEBOUNCE_DELAY: Long = 300L
     }
 
 
