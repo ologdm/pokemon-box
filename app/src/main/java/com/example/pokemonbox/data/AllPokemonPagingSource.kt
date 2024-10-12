@@ -22,7 +22,7 @@ class AllPokemonPagingSource(
     override suspend fun load(
         params: LoadParams<Int>
     ): LoadResult<Int, Pokemon> {
-        val offset = params.key ?: 0 // start offset
+        val offset = params.key ?: 0
 
         return try {
             val resultPokemons = pokeApi.getAllPokemonList(offset).results
@@ -52,8 +52,8 @@ class AllPokemonPagingSource(
 
             LoadResult.Page(
                 data = pokemons,
-                prevKey = null, // doesn't need because I always start loading data from beginning
-                nextKey = if (resultPokemons.isEmpty()) null else (offset + 20) // ok
+                prevKey = null,
+                nextKey = if (resultPokemons.isEmpty()) null else (offset + 20)
             )
         } catch (ex: CancellationException) {
             throw ex
@@ -74,7 +74,7 @@ class AllPokemonPagingSource(
     }
 
 
-    // #########################################################
+
     private fun joinData(
         pokemonBaseDtos: List<PokemonBaseDto>,
         pokemonDetailsDtos: List<PokemonDetailDto>,
@@ -88,7 +88,7 @@ class AllPokemonPagingSource(
                 id = pokemonBaseDto.id,
                 name = pokemonBaseDto.name,
                 types = detail?.types?.map { it.type.name }
-                    ?: emptyList(), // se primo slot vuoto, anche gli altri saran vuoti
+                    ?: emptyList(),
                 description = species?.flavorTextEntries
                     ?.sortedBy { it.flavorText.length }
                     ?.firstOrNull { it.language.name == "en" }?.flavorText?.removeLineBreaks()

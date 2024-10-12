@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.PokemonBox" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
 
-
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?android:windowBackground</item>
         <item name="android:windowLightStatusBar">@bool/light_status_bar</item>

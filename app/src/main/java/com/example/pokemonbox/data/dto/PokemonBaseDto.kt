@@ -1,11 +1,10 @@
 package com.example.pokemonbox.data.dto
 
 data class PokemonBaseDto(
-    val name: String, // "bulbasaur"
-    val url: String // "https://pokeapi.co/api/v2/pokemon/{id}/""
+    val name: String,
+    val url: String
 ) {
 
-    // es json_url - https://pokeapi.co/api/v2/pokemon/1/"
     val id: Int
         get() = url
             .split("/") // divide string in ["https:", "", "pokeapi.co", "api", "v2", "pokemon", "1", ""]

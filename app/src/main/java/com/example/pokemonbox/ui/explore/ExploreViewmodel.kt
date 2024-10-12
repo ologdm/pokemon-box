@@ -10,7 +10,7 @@ import com.example.pokemonbox.data.AllPokemonPagingSource
 import com.example.pokemonbox.data.ExploreRepository
 import com.example.pokemonbox.domain.Pokemon
 import com.example.pokemonbox.utils.IoResponse
-import com.example.pokemonbox.utils.UiState
+import com.example.pokemonbox.utils.UiUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,7 +41,7 @@ class ExploreViewmodel @Inject constructor(
 
 
     // SEARCH
-    val searchResultStatus = MutableStateFlow<UiState<Pokemon>>(UiState())
+    val searchResultStatus = MutableStateFlow<UiUtils<Pokemon>>(UiUtils())
 
     private val _searchQueryFlow = MutableStateFlow("")
     val isSearchingFlow: Flow<Boolean> = _searchQueryFlow
@@ -64,14 +64,14 @@ class ExploreViewmodel @Inject constructor(
     }
 
     private suspend fun loadSearchResult(name: String) {
-        searchResultStatus.value = UiState(isLoading = true)
+        searchResultStatus.value = UiUtils(isLoading = true)
         when (val response = repository.getPokemonSearchResult(name)) {
             is IoResponse.Success -> {
-                searchResultStatus.value = UiState(data = response.dataValue)
+                searchResultStatus.value = UiUtils(data = response.dataValue)
             }
 
             is IoResponse.Error -> {
-                searchResultStatus.value = UiState(isError = true)
+                searchResultStatus.value = UiUtils(isError = true)
                 response.t.printStackTrace()
             }
 

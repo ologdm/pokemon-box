@@ -5,7 +5,6 @@ import com.bumptech.glide.Glide
 import com.example.pokemonbox.R
 import com.example.pokemonbox.databinding.VhPokemonBinding
 import com.example.pokemonbox.domain.Pokemon
-import com.google.android.material.chip.Chip
 
 class PokemonVH(
     private val binding: VhPokemonBinding
@@ -22,29 +21,12 @@ class PokemonVH(
             .placeholder(R.drawable.pokemon_placeholder)
             .into(binding.pokemonImage)
 
+
         binding.typesChipGroup.removeAllViews()
         item.types.forEach { type ->
-            val chip = Chip(context).apply {
-                text = type.replaceFirstChar { it.uppercaseChar() }
-                textSize = 18f
-                isClickable = false
-                isCheckable = false
-
-                setChipBackgroundColorResource(R.color.my_background_color)
-                setTextColor(context.getColor(R.color.chip_text_color))
-                chipCornerRadius = 24f
-                chipStrokeWidth = 1f
-                chipStrokeColor = context.getColorStateList(R.color.my_background_color)
-                setEnsureMinTouchTargetSize(false)
-
-                chipStartPadding = 4f
-                chipEndPadding = 4f
-                setPadding(2,2,2,2)
-
-            }
+            val chip = ExploreFragment.getPokemonTypeChip(context, type)
             binding.typesChipGroup.addView(chip)
         }
-
     }
 
 

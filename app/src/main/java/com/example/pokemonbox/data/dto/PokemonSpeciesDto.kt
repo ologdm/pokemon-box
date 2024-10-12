@@ -18,7 +18,6 @@ data class FlavorTextEntryDto(
 )
 
 
-// Dto == PokemonBaseDto
 data class NamedApiResourceDto(
     val name: String,
     val url: String

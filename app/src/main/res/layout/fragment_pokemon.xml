@@ -80,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="12dp" />
 
-    <!--search layout: identico al vh del recyclerView-->
+    <!--searchResultLayout: same as the RecyclerView Viewholder-->
     <include
             android:id="@+id/search_result_layout"
             android:layout_width="match_parent"
@@ -109,6 +109,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:backgroundTint="?attr/colorSecondary"
             android:text="Try again"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent" />
 
 
