@@ -1,6 +1,5 @@
 package com.example.pokemonbox.ui.explore
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -32,6 +31,8 @@ class ExploreViewmodel @Inject constructor(
         private val DEBOUNCE_DELAY: Long = 300L
     }
 
+
+    // PAGING
     val statePaging = Pager(
         config = PagingConfig(pageSize = 20, enablePlaceholders = false),
         pagingSourceFactory = { AllPokemonPagingSource(pokeApi) }
@@ -39,12 +40,12 @@ class ExploreViewmodel @Inject constructor(
         .cachedIn(viewModelScope)
 
 
+    // SEARCH
     val searchResultStatus = MutableStateFlow<UiState<Pokemon>>(UiState())
 
     private val _searchQueryFlow = MutableStateFlow("")
     val isSearchingFlow: Flow<Boolean> = _searchQueryFlow
         .map { it.isNotBlank() }
-
 
 
     init {
@@ -53,7 +54,7 @@ class ExploreViewmodel @Inject constructor(
                 .debounce(DEBOUNCE_DELAY)
                 .filter { it.isNotBlank() }
                 .collectLatest {
-                    loadSearchResult(it) // OK
+                    loadSearchResult(it)
                 }
         }
     }
