@@ -28,7 +28,7 @@ fun PokemonDetailDto.toDomain(
 ): Pokemon {
     return Pokemon(
         id = this.id,
-        name = this.name,
+        name = this.name.replaceFirstChar { it.uppercaseChar() },
         types = this.types.map { it.type.name },
         description = pokemonSpeciesDto?.flavorTextEntries
             ?.sortedBy { it.flavorText.length }
