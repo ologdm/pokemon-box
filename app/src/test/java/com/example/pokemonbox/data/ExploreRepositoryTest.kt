@@ -37,7 +37,7 @@ class ExploreRepositoryTest {
             IoResponse.Success(
                 Pokemon(
                     id = 1,
-                    name = "bulbasaur",
+                    name = "Bulbasaur",
                     types = listOf("grass"),
                     description = "description"
                 )
