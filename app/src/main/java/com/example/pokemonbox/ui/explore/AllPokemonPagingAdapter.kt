@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.pokemonbox.databinding.VhPokemonBinding
 import com.example.pokemonbox.domain.Pokemon
 
-class AllPokemonPagingAdapter
-    : PagingDataAdapter<Pokemon, PokemonVH>(AllPokemonPagingAdapter) {
+class AllPokemonPagingAdapter(
+    private val onClick: (String) -> Unit
+) : PagingDataAdapter<Pokemon, PokemonVH>(AllPokemonPagingAdapter) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonVH {
@@ -21,6 +22,12 @@ class AllPokemonPagingAdapter
     override fun onBindViewHolder(holder: PokemonVH, position: Int) {
         val item = getItem(position) ?: return
         holder.bind(item)
+
+        holder.itemView.setOnClickListener {
+            onClick(item.name)
+        }
+
+
     }
 
 

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.pokemonbox.R
 import com.example.pokemonbox.databinding.FragmentPokemonBinding
 import com.example.pokemonbox.domain.Pokemon
+import com.example.pokemonbox.ui.detail.DetailFragment
 import com.example.pokemonbox.utils.fragmentViewLifecycleScope
 import com.example.pokemonbox.utils.viewBinding
 import com.google.android.material.chip.Chip
@@ -26,7 +27,12 @@ class ExploreFragment : Fragment(R.layout.fragment_pokemon) {
 
     private val binding by viewBinding { FragmentPokemonBinding.bind(it) }
     private val viewmodel by viewModels<ExploreViewmodel>()
-    private val adapter = AllPokemonPagingAdapter()
+    private val adapter = AllPokemonPagingAdapter(onClick = {name->
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout,DetailFragment.create(name))
+            .addToBackStack(null)
+            .commit()
+    })
 
 
     override fun onViewCreated(

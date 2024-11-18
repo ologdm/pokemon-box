@@ -8,4 +8,15 @@
     <string name="something_went_wrong">Something went wrong. Retry.</string>
 
 
+    <string name="pokedex">Pokedex</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="try_again">Try again</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong, please try again</string>
+
+    <dimen name="pokemon_card_radius">12dp</dimen>
+    <dimen name="toolbar">56dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+
 </resources>
