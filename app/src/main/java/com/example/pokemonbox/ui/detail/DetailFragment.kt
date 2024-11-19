@@ -8,7 +8,7 @@ import com.example.pokemonbox.databinding.FragmentDetailBinding
 import com.example.pokemonbox.utils.viewBinding
 
 
-class DetailFragment : Fragment(R.layout.fragment_pokemon) {
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val binding by viewBinding { FragmentDetailBinding.bind(it) }
 
@@ -23,7 +23,7 @@ class DetailFragment : Fragment(R.layout.fragment_pokemon) {
         }
 
         binding.back.setOnClickListener {
-//            getA
+            parentFragmentManager.popBackStack()
         }
 
     }
