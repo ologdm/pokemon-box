@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -36,7 +37,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '1.8'
     }
 
 
@@ -47,7 +48,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.5.3" // Usa la versione più recente di Compose
+        kotlinCompilerExtensionVersion "1.5.1" // Usa la versione più recente di Compose
     }
 
     packaging {
@@ -80,6 +81,7 @@ dependencies {
     // compose - test and debuging ui
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.3") // Test Compose
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.3") // Debugging UI
+
 
     // coroutines
     implementation(libs.kotlinx.coroutines.core)
